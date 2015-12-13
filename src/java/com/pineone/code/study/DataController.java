@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
  * Created by pahnj on 2015-12-06.
  */
 @RestController
-public class StringReplaceController {
+public class DataController {
 
 
     @Autowired
@@ -24,6 +25,9 @@ public class StringReplaceController {
 
     @Autowired
     IIntToHexParsing intToHexParsing;
+
+    @Autowired
+    IDateFormatter dateFormatter;
 
     @RequestMapping(value = "/stringreplace", method = RequestMethod.POST)
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -45,6 +49,12 @@ public class StringReplaceController {
     @RequestMapping(value = "/inttohex", method = RequestMethod.POST)
     public String IntToHexParsingController(@RequestBody String dec){
         return intToHexParsing.IntToHexString(Integer.parseInt(dec));
+    }
+
+    @RequestMapping(value = "/dateformatter", method = RequestMethod.POST)
+    public String DateFormatterController(@RequestBody String places){
+
+        return dateFormatter.getDate(Calendar.getInstance(), places);
     }
 
 }
