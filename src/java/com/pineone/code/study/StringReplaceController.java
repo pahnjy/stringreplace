@@ -19,6 +19,12 @@ public class StringReplaceController {
     @Autowired
     IUriStringParsing uriStringParsing;
 
+    @Autowired
+    IHexToIntStringParsing hexToIntStringParsing;
+
+    @Autowired
+    IIntToHexParsing intToHexParsing;
+
     @RequestMapping(value = "/stringreplace", method = RequestMethod.POST)
     @JsonIgnoreProperties(ignoreUnknown = true)
     public String dataProtocalController(@RequestBody InputData inputdata) {
@@ -29,6 +35,16 @@ public class StringReplaceController {
     public HashMap<String, String> urlDataParsingController(@RequestBody String uri){
 
         return uriStringParsing.getUrlParsing(uri);
+    }
+
+    @RequestMapping(value = "/hextoint", method = RequestMethod.POST)
+    public int hexToIntParsingController(@RequestBody String hex){
+        return hexToIntStringParsing.HextoString(hex);
+    }
+
+    @RequestMapping(value = "/inttohex", method = RequestMethod.POST)
+    public String IntToHexParsingController(@RequestBody String dec){
+        return intToHexParsing.IntToHexString(Integer.parseInt(dec));
     }
 
 }
