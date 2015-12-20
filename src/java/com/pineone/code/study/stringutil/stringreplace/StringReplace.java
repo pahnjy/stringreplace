@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * Created by pahnj on 2015-12-06.
+ * 문자열 치환
+ * 입력 소스(original) 문자열에서 특정 문자열1을 문자열2로 치환하는 API
  */
 @Service
 public class StringReplace implements IStringReplace {

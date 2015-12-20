@@ -6,6 +6,8 @@ import java.util.Calendar;
 
 /**
  * Created by pahnj on 2015-12-13.
+ * Date formatter
+ * getDate(calendar, "yyyy-MM-dd hh:mm:ss"); --> 2015-12-13 15:30:12
  */
 @Service
 public class DateFormatter implements IDateFormatter{

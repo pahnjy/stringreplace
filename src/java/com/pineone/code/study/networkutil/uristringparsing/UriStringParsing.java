@@ -3,7 +3,6 @@ package com.pineone.code.study.networkutil.uristringparsing;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pineone.code.study.TestData;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,6 +10,8 @@ import java.util.HashMap;
 
 /**
  * Created by pahnj on 2015-12-08.
+ * key-value string 파싱 하는 API
+ *
  */
 @Service
 public class UriStringParsing implements IUriStringParsing {
@@ -26,10 +27,6 @@ public class UriStringParsing implements IUriStringParsing {
 
     @Override
     public HashMap<String, String> getUrlParsing(String uri) {
-
-        TestData dd = new TestData("aa","bb","cc");
-        System.out.println("ahn data = " + dataParsing(dd));
-
 
         String orgString = "";
         String changeString = "";

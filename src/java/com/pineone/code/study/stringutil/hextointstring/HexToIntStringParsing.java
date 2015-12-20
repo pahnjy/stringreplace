@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Created by pahnj on 2015-12-13.
+ * 헥사를 Int형 String으로 변환하는 API
  */
 @Service
 public class HexToIntStringParsing implements IHexToIntStringParsing {

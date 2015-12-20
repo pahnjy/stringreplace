@@ -4,17 +4,23 @@ import org.springframework.stereotype.Service;
 
 /**
  * Created by pahnj on 2015-12-06.
+ * URL parser
+ * 해당 url을 분석하여 파싱하는 API제공
  */
 
 @Service
 public class UriParsing implements IUriParsingApi {
 
 
+    public static final String PRPTOCAL_DIVIDER = "://";
+    public static final String PROTOCAL_PREPIX = ":";
+    public static final String URL_DIVIDER = "/";
+
     public String getProtocal(String url) {
         if (url == null || url.length() == 0) {
             return "no data";
         } else {
-            return url.substring(0, url.indexOf(":"));
+            return url.substring(0, url.indexOf(PROTOCAL_PREPIX));
         }
     }
 
@@ -25,18 +31,18 @@ public class UriParsing implements IUriParsingApi {
 
         int prefixData = 3;
 
-        if(url.indexOf("://") != -1){
+        if(url.indexOf(PRPTOCAL_DIVIDER) != -1){
             prefixData = 3;
-        } else if(url.indexOf(":") != -1){
+        } else if(url.indexOf(PROTOCAL_PREPIX) != -1){
             prefixData = 1;
         }
 
-        String host = url.substring(url.indexOf(":") + prefixData, url.length());
+        String host = url.substring(url.indexOf(PROTOCAL_PREPIX) + prefixData, url.length());
 
-        if (host.indexOf(":") != -1) {
-            return host.substring(0, host.indexOf(":"));
-        } else if (host.indexOf("/") != -1) {
-            return host.substring(0, host.indexOf("/"));
+        if (host.indexOf(PROTOCAL_PREPIX) != -1) {
+            return host.substring(0, host.indexOf(PROTOCAL_PREPIX));
+        } else if (host.indexOf(URL_DIVIDER) != -1) {
+            return host.substring(0, host.indexOf(URL_DIVIDER));
         } else {
             return host;
         }
@@ -45,14 +51,14 @@ public class UriParsing implements IUriParsingApi {
 
     public String getPort(String url) {
 
-        String port = url.substring(url.indexOf(":") + 3, url.length());
+        String port = url.substring(url.indexOf(PROTOCAL_PREPIX) + 3, url.length());
 
-        if (port.indexOf(":") == -1) {
+        if (port.indexOf(PROTOCAL_PREPIX) == -1) {
             return "8080";
-        } else if (port.indexOf("/") != -1) {
-            return port.substring(port.indexOf(":") + 1, port.indexOf("/"));
+        } else if (port.indexOf(URL_DIVIDER) != -1) {
+            return port.substring(port.indexOf(PROTOCAL_PREPIX) + 1, port.indexOf(URL_DIVIDER));
         } else {
-            return port.substring(port.indexOf(":") + 1, port.length());
+            return port.substring(port.indexOf(PROTOCAL_PREPIX) + 1, port.length());
         }
 
     }
@@ -69,11 +75,11 @@ public class UriParsing implements IUriParsingApi {
         int startSubindex = getProtocal(url).length() + getHost(url).length() + 1;
         sub = url.substring(startSubindex, url.length());
 
-        if (sub.indexOf("/") == -1) {
+        if (sub.indexOf(URL_DIVIDER) == -1) {
             return "no sub data";
         }
 
-        startSubindex = sub.indexOf("/");
+        startSubindex = sub.indexOf(URL_DIVIDER);
         sub = sub.substring(startSubindex + 1, sub.length());
         if(sub.length() == 0){
             return "no sub data";

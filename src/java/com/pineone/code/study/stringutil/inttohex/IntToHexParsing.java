@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Created by pahnj on 2015-12-13.
+ * 10진수를 16진수 string으로 변환하는 API
  */
 @Service
 public class IntToHexParsing implements IIntToHexParsing {
