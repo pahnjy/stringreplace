@@ -1,4 +1,4 @@
-package com.pineone.code.study;
+package com.pineone.code.study.stringutil.checkversion;
 
 /**
  * Created by pahnj on 2015-12-20.

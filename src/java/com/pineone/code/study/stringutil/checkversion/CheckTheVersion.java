@@ -1,4 +1,4 @@
-package com.pineone.code.study;
+package com.pineone.code.study.stringutil.checkversion;
 
 import org.springframework.stereotype.Service;
 

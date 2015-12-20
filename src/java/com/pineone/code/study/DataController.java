@@ -1,6 +1,16 @@
 package com.pineone.code.study;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.pineone.code.study.networkutil.nslookup.INsLookUp;
+import com.pineone.code.study.networkutil.protocalserviceaccess.IProtocalServiceAccess;
+import com.pineone.code.study.networkutil.uriparsing.IUriParsingApi;
+import com.pineone.code.study.networkutil.uristringparsing.IUriStringParsing;
+import com.pineone.code.study.stringutil.checkversion.ICheckTheVersion;
+import com.pineone.code.study.stringutil.dataformatter.IDateFormatter;
+import com.pineone.code.study.stringutil.hextointstring.IHexToIntStringParsing;
+import com.pineone.code.study.stringutil.inttohex.IIntToHexParsing;
+import com.pineone.code.study.stringutil.ministring.IMiniStringUtil;
+import com.pineone.code.study.stringutil.stringreplace.IStringReplace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +24,6 @@ import java.util.HashMap;
 public class DataController {
 
 
-    public static final String REQUEST_BODY = "body";
     public static final String REQUEST_HEADER = "header";
     public static final String REQUEST_HTMLDATA = "htmldata";
     @Autowired
@@ -37,9 +46,49 @@ public class DataController {
     @Autowired
     IProtocalServiceAccess protocalServiceAccess;
 
+    @Autowired
+    INsLookUp nsLookUp;
+
+    @Autowired
+    IUriParsingApi uriParsingApi;
+
+    @Autowired
+    IMiniStringUtil miniStringUtil;
+
+    @RequestMapping(value = "/stringutil/{value}", method = RequestMethod.POST)
+    public String miniStringController(@RequestBody String length,@PathVariable String value) {
+        return miniStringUtil.changeExpression(value, length);
+    }
+
+    @RequestMapping(value = "/protocol", method = RequestMethod.POST)
+    public String dataProtocalController(@RequestBody String url) {
+        return uriParsingApi.getProtocal(url);
+    }
+
+    @RequestMapping(value = "/host", method = RequestMethod.POST)
+    public String dataHostController(@RequestBody String url) {
+        return uriParsingApi.getHost(url);
+    }
+
+    @RequestMapping(value = "/port", method = RequestMethod.POST)
+    public String dataPortController(@RequestBody String url) {
+        return uriParsingApi.getPort(url);
+    }
+
+    @RequestMapping(value = "/sub", method = RequestMethod.POST)
+    public String dataSubController(@RequestBody String url) {
+        return uriParsingApi.getSub(url);
+    }
+
+    @RequestMapping(value = "/nslookup", method = RequestMethod.POST)
+    public String nslookupController(@RequestBody String address) {
+
+        return nsLookUp.getAddress(address);
+    }
+
     @RequestMapping(value = "/stringreplace", method = RequestMethod.POST)
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public String dataProtocalController(@RequestBody InputData inputdata) {
+    public String stringReplaceController(@RequestBody InputData inputdata) {
         return stringReplace.replaceString(inputdata.getValue(),inputdata.getBefore(),inputdata.getAfter());
     }
 
@@ -79,12 +128,9 @@ public class DataController {
     @RequestMapping(value = "/serviceaccess/{type}", method = RequestMethod.POST)
     public String ServiceAcceccController(@RequestBody String url, @PathVariable String type){
 
-        if(REQUEST_BODY.equals(type))
+        if(REQUEST_HEADER.equals(type))
         {
-            return protocalServiceAccess.getbody(url);
-        } else if(REQUEST_HEADER.equals(type))
-        {
-            return protocalServiceAccess.getHeader(url);
+            return protocalServiceAccess.getBinary(url);
         } else if(REQUEST_HTMLDATA.equals(type))
         {
             return protocalServiceAccess.getHtmlData(url);

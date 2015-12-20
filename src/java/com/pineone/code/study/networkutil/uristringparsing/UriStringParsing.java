@@ -1,8 +1,9 @@
-package com.pineone.code.study;
+package com.pineone.code.study.networkutil.uristringparsing;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pineone.code.study.TestData;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class UriStringParsing implements IUriStringParsing {
     public static final int BEGIN_INDEX = 0;
     public static final String DIVISION_KEY = "=";
 
-    public HashMap<String,String> urimap = new HashMap<>();
+    public HashMap<String,String> urimap = new HashMap<String,String>();
 
     @Override
     public HashMap<String, String> getUrlParsing(String uri) {

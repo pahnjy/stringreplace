@@ -1,4 +1,4 @@
-package com.pineone.code.study;
+package com.pineone.code.study.networkutil.protocalserviceaccess;
 
 /**
  * Created by pahnj on 2015-12-20.
@@ -6,6 +6,5 @@ package com.pineone.code.study;
 public interface IProtocalServiceAccess {
 
     String getHtmlData(String url);
-    String getHeader(String url);
-    String getbody(String gurl);
+    String getBinary(String url);
 }

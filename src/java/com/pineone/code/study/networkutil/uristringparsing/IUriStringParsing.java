@@ -1,4 +1,4 @@
-package com.pineone.code.study;
+package com.pineone.code.study.networkutil.uristringparsing;
 
 import java.util.HashMap;
 
