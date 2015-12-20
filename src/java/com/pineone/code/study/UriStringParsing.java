@@ -1,8 +1,11 @@
 package com.pineone.code.study;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -22,6 +25,9 @@ public class UriStringParsing implements IUriStringParsing {
 
     @Override
     public HashMap<String, String> getUrlParsing(String uri) {
+
+        TestData dd = new TestData("aa","bb","cc");
+        System.out.println("ahn data = " + dataParsing(dd));
 
 
         String orgString = "";
@@ -60,5 +66,25 @@ public class UriStringParsing implements IUriStringParsing {
         urimap.put(inputKey,inputValue);
     }
 
-
+    public String dataParsing(Object o)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        String data = null;
+        if(o == null){
+            return data;
+        }
+        try
+        {
+            data = mapper.writeValueAsString(o);
+        }
+        catch (JsonProcessingException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return data;
+    }
 }

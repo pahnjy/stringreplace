@@ -15,6 +15,7 @@ public class StringReplace implements IStringReplace {
             return value;
         }
 
+
         String orgValue = value;
         String tempString = "";
         String changeValue = "";
@@ -38,4 +39,6 @@ public class StringReplace implements IStringReplace {
         }
 
     }
+
+
 }

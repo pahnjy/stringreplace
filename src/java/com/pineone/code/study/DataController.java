@@ -14,6 +14,9 @@ import java.util.HashMap;
 public class DataController {
 
 
+    public static final String REQUEST_BODY = "body";
+    public static final String REQUEST_HEADER = "header";
+    public static final String REQUEST_HTMLDATA = "htmldata";
     @Autowired
     IStringReplace stringReplace;
 
@@ -28,6 +31,11 @@ public class DataController {
 
     @Autowired
     IDateFormatter dateFormatter;
+
+    @Autowired
+    ICheckTheVersion checkTheVersion;
+    @Autowired
+    IProtocalServiceAccess protocalServiceAccess;
 
     @RequestMapping(value = "/stringreplace", method = RequestMethod.POST)
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -55,6 +63,33 @@ public class DataController {
     public String DateFormatterController(@RequestBody String places){
 
         return dateFormatter.getDate(Calendar.getInstance(), places);
+    }
+
+    /**
+     *
+     * @param version
+     * @return upgrade check. true : 버전업 필요, false : 기존 버전이 높음
+     */
+    @RequestMapping(value = "/ckversion", method = RequestMethod.POST)
+    public boolean VersionController(@RequestBody String version){
+
+        return checkTheVersion.checkVersion(version);
+    }
+
+    @RequestMapping(value = "/serviceaccess/{type}", method = RequestMethod.POST)
+    public String ServiceAcceccController(@RequestBody String url, @PathVariable String type){
+
+        if(REQUEST_BODY.equals(type))
+        {
+            return protocalServiceAccess.getbody(url);
+        } else if(REQUEST_HEADER.equals(type))
+        {
+            return protocalServiceAccess.getHeader(url);
+        } else if(REQUEST_HTMLDATA.equals(type))
+        {
+            return protocalServiceAccess.getHtmlData(url);
+        }
+        return protocalServiceAccess.getHtmlData(url);
     }
 
 }
