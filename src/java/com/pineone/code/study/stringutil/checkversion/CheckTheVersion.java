@@ -29,7 +29,7 @@ public class CheckTheVersion implements ICheckTheVersion {
 
 
         int version_count = 0;
-        while (CHECK_LIMIT > version_count) {
+        while (checkVersionLength(orgVersion,checkVersion) > version_count) {
             if (isUpgrage(checkVersion[version_count], orgVersion[version_count])) {
                 return Boolean.FALSE;
             }
@@ -37,6 +37,18 @@ public class CheckTheVersion implements ICheckTheVersion {
         }
 
         return Boolean.TRUE;
+
+    }
+
+    private int checkVersionLength(String[] org, String[] check)
+    {
+        if(org.length > check.length)
+        {
+            return check.length;
+        } else
+        {
+            return org.length;
+        }
 
     }
 
